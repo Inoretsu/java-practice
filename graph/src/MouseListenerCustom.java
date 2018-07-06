@@ -29,49 +29,43 @@ public class MouseListenerCustom implements MouseInputListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        System.out.println("mouseReleased\n");
         if( e.getButton() == MouseEvent.BUTTON1 ){
             x2 = e.getX();
             y2 = e.getY();
             Collection<GraphicElement> selected = vw.allNodesOrSpritesIn(Math.min(x1, x2), Math.min(y1, y2), Math.max(x1, x2), Math.max(y1, y2));
             for( GraphicElement ge : selected )
-            {
-                graph.getNode(ge.getId()).setAttribute("Selected", true);
-                graph.getNode(ge.getId()).setAttribute("ui.label", "Selected");
-            }
+                graph.getNode(ge.getId()).setAttribute("ui.selected", true);
         }
         pipe.pump();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("mouseClicked\n");
         switch (e.getButton()){
             case MouseEvent.BUTTON1:
                 //Select one
                 Collection<GraphicElement> selected = vw.allNodesOrSpritesIn(e.getX()-5, e.getY()-5, e.getX()+5, e.getY()+5);
                 if( !selected.isEmpty() ){
-                    for( GraphicElement ge : selected )
-                    {
-                        graph.getNode(ge.getId()).setAttribute("Selected", true);
-                        graph.getNode(ge.getId()).setAttribute("ui.label", "Selected");
+                    for( GraphicElement ge : selected ) {
+                        graph.getNode(ge.getId()).setAttribute("ui.selected", true);
+                        System.out.println(graph.getNode(ge.getId()));
                     }
                 }
                 else
                     //Deselect
                     if( !cm.isVisible() )
-                        for( Node c : graph.getNodeSet() ) {
-                            c.setAttribute("ui.label", "");
-                            c.setAttribute("Selected", false);
-                        }
-                //Double click
-                if(e.getClickCount() >= 2) {
-                    Node c = graph.addNode(Integer.toString(graph.getNodeCount()));
-                    c.addAttribute("Selected", false);
-                    c.setAttribute("ui.label", "");
-                }
+                        for( Node c : graph.getNodeSet() )
+                            c.setAttribute("ui.selected", false);
+               //Double click
+                if(e.getClickCount() >= 2)
+                    NodeSet.addNode(graph,"");
                 break;
 
             case MouseEvent.BUTTON3:
                 cm.show(e.getComponent(), e.getX(), e.getY());
+                break;
         }
         pipe.pump();
     }
@@ -88,9 +82,12 @@ public class MouseListenerCustom implements MouseInputListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
+        System.out.println("mousePressed\n");
+        System.out.println(e.getX());
+        System.out.println(' ');
+        System.out.println(e.getY());
         x1 = e.getX();
         y1 = e.getY();
-        //System.out.println("Pump it!");
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.view.*;
 import org.graphstream.ui.swingViewer.*;
-import org.graphstream.graph.Node;
 
 public class MainWindow extends JFrame {
     private Graph graph;
@@ -13,14 +12,14 @@ public class MainWindow extends JFrame {
     private Viewer viewer;
     private ViewPanel view;
 
+    private JTable table;
 
-    private JTable table = new JTable();
 
     private final JLabel title1 = createLabel("Graph creator", 22, 22);
     private final JLabel title2 = createLabel("Algorithm", 22, 240);
     private final JLabel title3 = createLabel("Matrix", 22, 433);
 
-    private final JTextField textEdit = createTextEdit ("Enter node name",22, 63, 211, 37);
+    private final JTextField nodeName = createTextEdit ("Enter node name",22, 63, 211, 37);
     private final JButton addButton = createButton("add node", 22, 114);
     private final JButton actionButton = createButton("dew it", 22, 164);
 
@@ -30,7 +29,6 @@ public class MainWindow extends JFrame {
 
 
     public MainWindow() {
-        System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         graph = new SingleGraph("ID");
         viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
         view = viewer.addDefaultView(false);
@@ -43,7 +41,7 @@ public class MainWindow extends JFrame {
                         "shape: circle;" +
                         "fill-color: green;" +
                         "size: 40px, 40px;" +
-                        "text-mode: hidden;" +
+                        //"text-mode: hidden;" +
                         "}" +
                         "node:selected {" +
                         "fill-color: red;" +
@@ -54,9 +52,7 @@ public class MainWindow extends JFrame {
                         " edge {" +
                         "shape: line;" +
                         "arrow-size: 3px, 2px;" +
-
-                        "}" +
-                "");
+                        "}");
 
 
         //file menu
@@ -81,49 +77,44 @@ public class MainWindow extends JFrame {
         menuBar.add(fileMenu);
         menuBar.add(aboutMenu);
         setJMenuBar(menuBar);
-        //
-
 
         //left panel
-        JPanel panel2 = new JPanel();
+        JPanel toolBar = new JPanel();
 
-        panel2.setPreferredSize(new Dimension(260, 660));
-        panel2.setBackground(new Color(34,31,37));
-        panel2.setLayout(null);
-        panel2.add(title1);
-        panel2.add(textEdit);
-        panel2.add(addButton);
-        panel2.add(actionButton);
-        panel2.add(title2);
-        panel2.add(sbs);
-        panel2.add(butStart);
-        panel2.add(butStop);
-        panel2.add(title3);
+        toolBar.setPreferredSize(new Dimension(260, 660));
+        toolBar.setBackground(new Color(34,31,37));
+        toolBar.setLayout(null);
+        toolBar.add(title1);
+        toolBar.add(nodeName);
+        toolBar.add(addButton);
+        toolBar.add(actionButton);
+        toolBar.add(title2);
+        toolBar.add(sbs);
+        toolBar.add(butStart);
+        toolBar.add(butStop);
+        toolBar.add(title3);
         JScrollPane jscrlp = new JScrollPane(table);
         jscrlp.setBounds(22, 464, 211, 185);
-        panel2.add(jscrlp);
+        toolBar.add(jscrlp);
         //
 
         view.setPreferredSize(new Dimension(950, 660));
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-        panel.setPreferredSize(new Dimension(1200, 660));
-        panel.add(panel2, BorderLayout.EAST);
-        panel.add(view, BorderLayout.WEST);
+        JPanel backPanel = new JPanel();
+        backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.X_AXIS));
+        backPanel.setPreferredSize(new Dimension(1200, 660));
+        backPanel.add(toolBar, BorderLayout.EAST);
+        backPanel.add(view, BorderLayout.WEST);
 
-        setContentPane(panel);
+        setContentPane(backPanel);
         viewer.enableAutoLayout();
 
-
         addButton.addActionListener((e) -> {
-                Node buff = graph.addNode(textEdit.getText());
-                buff.addAttribute("Selected", false);
+                NodeSet.addNode(graph, nodeName.getText());
         });
         actionButton.addActionListener((e) -> {
 
         });
-
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         pack();
