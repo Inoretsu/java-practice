@@ -59,21 +59,31 @@ public class MainWindow extends JFrame {
         graph.addAttribute("ui.stylesheet",
                 "node {" +
                         "shape: circle;" +
-                        "fill-color: green;" +
+                        "fill-color: white;" +
                         "size: 40px, 40px;" +
+                        "stroke-mode: plain;" +
+                        "stroke-color: rgb(220,45,45);" +
+                        "stroke-width: 5px;" +
+                        "text-color: rgb(220,45,45);" +
+                        "text-style: bold;" +
+                        "text-size: 20px;" +
+                        "text-mode: normal;" +
                         //"text-mode: hidden;" +
                         "}" +
                         "node:selected {" +
-                        "fill-color: red;" +
+                        "stroke-color: rgb(34,31,37);" +
+                        "text-color: rgb(34,31,37);" +
                         "}" +
                         "node:clicked {" +
-                        "fill-color: red;" +
+                        "fill-color: rgb(220,45,45);" +
+                        "text-color: white;" +
                         "}" +
                         " edge {" +
                         "shape: line;" +
                         "size: 3px;" +
                         "arrow-size: 10px;" +
                         "arrow-shape: arrow;" +
+                        "fill-color: rgb(34,31,37);" +
                         "}");
 
 
@@ -132,17 +142,25 @@ public class MainWindow extends JFrame {
         viewer.enableAutoLayout();
 
         addButton.addActionListener((e) -> {
-            graph.addNode( Integer.toString(IDGenerator.getInstance().assignID()) );
+            Node n = graph.addNode( Integer.toString(IDGenerator.getInstance().assignID()) );
+            n.addAttribute("ui.label", nodeName.getText());
         });
 
-        generateButton.addActionListener((b) -> {
+        generateButton.addActionListener((e) -> {
             Generator gen = new RandomGenerator();
             gen.addSink(graph);
             gen.begin();
+            Node m = graph.getNode(graph.getNodeCount() - 1);
+            m.setAttribute("ui.label", graph.getNodeCount());
             int n = ThreadLocalRandom.current().nextInt(3, 25);
             for(int i=0; i<n; i++) {
+
                 gen.nextEvents();
+                Node curr = graph.getNode(graph.getNodeCount() - 1);
+                curr.setAttribute("ui.label", graph.getNodeCount());
             }
+            Node g = graph.getNode(graph.getNodeCount() - 1);
+            g.setAttribute("ui.label", graph.getNodeCount());
             gen.end();
         });
 
