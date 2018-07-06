@@ -3,6 +3,7 @@ import javax.swing.*;
 
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.stream.GraphParseException;
+import org.graphstream.stream.file.FileSink;
 import org.graphstream.stream.file.FileSourceDGS;
 import org.graphstream.ui.view.*;
 import org.graphstream.algorithm.generator.*;
@@ -43,7 +44,6 @@ public class MainWindow extends JFrame {
     private final JButton clearButton = createButton ("clear", 22, 358);
     private final JMenuItem openItem = new JMenuItem("Open");
     private final JMenuItem saveItem = new JMenuItem("Save");
-    private  JFileChooser fileChooser = null;
 
     public MainWindow() {
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
@@ -149,7 +149,8 @@ public class MainWindow extends JFrame {
         });
 
         clearButton.addActionListener((e) -> {
-            for(Node i: graph.getEachNode()) {
+
+            for(Node i: graph) {
                 graph.removeNode(i);
             }
         });
@@ -158,13 +159,12 @@ public class MainWindow extends JFrame {
         saveItem.addActionListener(e -> {
             JFileChooser saveFile = new JFileChooser();
             saveFile.showSaveDialog(null);
-            saveFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "Open Graph","dgz");
-            saveFile.setFileFilter(filter);
-            File file2 = saveFile.getSelectedFile();
+            String path = saveFile.getSelectedFile().toString();
+
+            File file = new File(path);
             try {
-                graph.write(String.valueOf(file2));
+                graph.write(String.valueOf(file));
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -173,9 +173,6 @@ public class MainWindow extends JFrame {
 
         openItem.addActionListener(e -> {
             JFileChooser openFile = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "Open Graph","dgz");
-            openFile.setFileFilter(filter);
             openFile.showOpenDialog(null);
             File path = openFile.getSelectedFile();
 
