@@ -6,6 +6,8 @@ import org.graphstream.ui.view.*;
 import org.graphstream.algorithm.generator.*;
 import org.graphstream.ui.swingViewer.*;
 import org.graphstream.graph.*;
+import org.graphstream.ui.view.util.MouseManager;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MainWindow extends JFrame {
@@ -15,6 +17,8 @@ public class MainWindow extends JFrame {
     private ViewPanel view;
 
     private JTable table;
+
+    CustomMouseManager mouseMan;
 
 
     private final JLabel title1 = createLabel("Graph creator", 22, 22);
@@ -35,7 +39,10 @@ public class MainWindow extends JFrame {
         graph = new SingleGraph("ID");
         viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
         view = viewer.addDefaultView(false);
-        new MouseListenerCustom(view, graph, viewer.newViewerPipe());
+
+        mouseMan = new CustomMouseManager();
+        mouseMan.init(viewer.getGraphicGraph(), view);
+
         new GraphChangeListener(graph, table);
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");
@@ -115,24 +122,24 @@ public class MainWindow extends JFrame {
         viewer.enableAutoLayout();
 
         addButton.addActionListener((e) -> {
-                NodeSet.addNode(graph, nodeName.getText());
+            graph.addNode(nodeName.getText());
         });
 
         generateButton.addActionListener((e) -> {
-                Generator gen = new RandomGenerator();
-                gen.addSink(graph);
-                gen.begin();
-                int n = ThreadLocalRandom.current().nextInt(3, 25);
-                for(int i=0; i<n; i++) {
-                    gen.nextEvents();
-                }
-                gen.end();
+            Generator gen = new RandomGenerator();
+            gen.addSink(graph);
+            gen.begin();
+            int n = ThreadLocalRandom.current().nextInt(3, 25);
+            for(int i=0; i<n; i++) {
+                gen.nextEvents();
+            }
+            gen.end();
         });
 
         clearButton.addActionListener((e) -> {
-                for(Node i: graph.getEachNode()) {
-                    graph.removeNode(i);
-                }
+            for(Node i: graph.getEachNode()) {
+                graph.removeNode(i);
+            }
         });
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
