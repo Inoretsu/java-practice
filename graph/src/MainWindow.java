@@ -2,12 +2,21 @@ import java.awt.*;
 import javax.swing.*;
 
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.stream.GraphParseException;
+import org.graphstream.stream.file.FileSourceDGS;
 import org.graphstream.ui.view.*;
 import org.graphstream.algorithm.generator.*;
 import org.graphstream.ui.swingViewer.*;
 import org.graphstream.graph.*;
+import org.graphstream.stream.file.FileSource;
 import org.graphstream.ui.view.util.MouseManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.graphstream.stream.file.FileSourceFactory;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MainWindow extends JFrame {
@@ -32,10 +41,12 @@ public class MainWindow extends JFrame {
     private final JCheckBox sbs = createCheckbox ("step by step", 22, 278);
     private final JButton startButton = createButton ("start", 22, 307);
     private final JButton clearButton = createButton ("clear", 22, 358);
-
+    private final JMenuItem openItem = new JMenuItem("Open");
+    private final JMenuItem saveItem = new JMenuItem("Save");
+    private  JFileChooser fileChooser = null;
 
     public MainWindow() {
-        System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         graph = new SingleGraph("ID");
         viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
         view = viewer.addDefaultView(false);
@@ -75,8 +86,9 @@ public class MainWindow extends JFrame {
         menuBar.setBackground(new Color(66,62,70));
         menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(179,45,45)));
 
-        JMenuItem openItem = new JMenuItem("Open");
+
         fileMenu.add(openItem);
+        fileMenu.add(saveItem);
         fileMenu.addSeparator();
         JMenuItem exitItem = new JMenuItem("Exit");
         fileMenu.add(exitItem);
@@ -141,6 +153,44 @@ public class MainWindow extends JFrame {
                 graph.removeNode(i);
             }
         });
+
+        // save/open file
+        saveItem.addActionListener(e -> {
+            JFileChooser saveFile = new JFileChooser();
+            saveFile.showSaveDialog(null);
+            saveFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Open Graph","dgz");
+            saveFile.setFileFilter(filter);
+            File file2 = saveFile.getSelectedFile();
+            try {
+                graph.write(String.valueOf(file2));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+
+        openItem.addActionListener(e -> {
+            JFileChooser openFile = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Open Graph","dgz");
+            openFile.setFileFilter(filter);
+            openFile.showOpenDialog(null);
+            File path = openFile.getSelectedFile();
+
+            FileSource files = new FileSourceDGS();
+            files.addSink(graph);
+            try {
+                files.begin(String.valueOf(path));
+                while(files.nextEvents()) {}
+                files.end();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+        });
+        //-------------------------------------
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         pack();
