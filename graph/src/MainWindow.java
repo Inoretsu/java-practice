@@ -1,10 +1,12 @@
 import java.awt.*;
 import javax.swing.*;
 
-import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.view.*;
+import org.graphstream.algorithm.generator.*;
 import org.graphstream.ui.swingViewer.*;
+import org.graphstream.graph.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MainWindow extends JFrame {
     private Graph graph;
@@ -21,14 +23,15 @@ public class MainWindow extends JFrame {
 
     private final JTextField nodeName = createTextEdit ("Enter node name",22, 63, 211, 37);
     private final JButton addButton = createButton("add node", 22, 114);
-    private final JButton actionButton = createButton("dew it", 22, 164);
+    private final JButton generateButton = createButton("random generator", 22, 164);
 
     private final JCheckBox sbs = createCheckbox ("step by step", 22, 278);
-    private final JButton butStart = createButton ("start", 22, 307);
-    private final JButton butStop = createButton ("clear", 22, 358);
+    private final JButton startButton = createButton ("start", 22, 307);
+    private final JButton clearButton = createButton ("clear", 22, 358);
 
 
     public MainWindow() {
+        System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         graph = new SingleGraph("ID");
         viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
         view = viewer.addDefaultView(false);
@@ -51,7 +54,9 @@ public class MainWindow extends JFrame {
                         "}" +
                         " edge {" +
                         "shape: line;" +
-                        "arrow-size: 3px, 2px;" +
+                        "size: 3px;" +
+                        "arrow-size: 10px;" +
+                        "arrow-shape: arrow;" +
                         "}");
 
 
@@ -87,11 +92,11 @@ public class MainWindow extends JFrame {
         toolBar.add(title1);
         toolBar.add(nodeName);
         toolBar.add(addButton);
-        toolBar.add(actionButton);
+        toolBar.add(generateButton);
         toolBar.add(title2);
         toolBar.add(sbs);
-        toolBar.add(butStart);
-        toolBar.add(butStop);
+        toolBar.add(startButton);
+        toolBar.add(clearButton);
         toolBar.add(title3);
         JScrollPane jscrlp = new JScrollPane(table);
         jscrlp.setBounds(22, 464, 211, 185);
@@ -112,8 +117,22 @@ public class MainWindow extends JFrame {
         addButton.addActionListener((e) -> {
                 NodeSet.addNode(graph, nodeName.getText());
         });
-        actionButton.addActionListener((e) -> {
 
+        generateButton.addActionListener((e) -> {
+                Generator gen = new RandomGenerator();
+                gen.addSink(graph);
+                gen.begin();
+                int n = ThreadLocalRandom.current().nextInt(3, 25);
+                for(int i=0; i<n; i++) {
+                    gen.nextEvents();
+                }
+                gen.end();
+        });
+
+        clearButton.addActionListener((e) -> {
+                for(Node i: graph.getEachNode()) {
+                    graph.removeNode(i);
+                }
         });
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
