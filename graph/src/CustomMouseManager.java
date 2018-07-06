@@ -1,3 +1,4 @@
+import org.graphstream.graph.Graph;
 import org.graphstream.ui.view.util.*;
 
 import org.graphstream.graph.Node;
@@ -12,14 +13,19 @@ public class CustomMouseManager implements MouseManager
 {
     protected View view;
     protected GraphicGraph graph;
+    protected Graph defaultGraph;
     protected ContextMenu contMenu;
 
     public void init(GraphicGraph graph, View view) {
-        this.contMenu = new ContextMenu(graph);
         this.view = view;
         this.graph = graph;
         view.addMouseListener(this);
         view.addMouseMotionListener(this);
+    }
+
+    public void enableContext(Graph graph){
+        defaultGraph = graph;
+        this.contMenu = new ContextMenu(graph);
     }
 
     public void release() {
@@ -86,10 +92,11 @@ public class CustomMouseManager implements MouseManager
         switch (event.getButton()){
             case MouseEvent.BUTTON1:
                 if(event.getClickCount() > 1)
-                    graph.addNode(Integer.toString(IDGenerator.getInstance().assignID()));
+                    defaultGraph.addNode(Integer.toString(IDGenerator.getInstance().assignID()));
                 break;
             case MouseEvent.BUTTON3:
-                contMenu.show(event.getComponent(), event.getX(), event.getY());
+                if( contMenu != null )
+                    contMenu.show(event.getComponent(), event.getX(), event.getY());
                 break;
         }
     }

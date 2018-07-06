@@ -33,17 +33,9 @@ public class ContextMenu extends JPopupMenu {
         deleteNodes = new JMenuItem("Delete node(-s)");
         add(deleteNodes);
         deleteNodes.addActionListener((e) -> {
-                Vector<Node> attrib = new Vector<>();
                 for( Node n : graph.getNodeSet() ) //Getting all selected nodes
-                {
-                    if ((boolean)n.getAttribute("Selected")) {
-                        attrib.add(n);
-                    }
-                }
-                for( Node n : attrib )
-                {
-                    graph.removeNode(n);
-                }
+                    if (n.hasAttribute("ui.selected"))
+                        graph.removeNode(n);
         });
 
         deleteEdges = new JMenuItem("Delete edge(-s)");
@@ -71,8 +63,7 @@ public class ContextMenu extends JPopupMenu {
             JButton ok = new JButton("Ok");
             input.add(ok);
             ok.addActionListener((ee)->{
-                Node n = graph.addNode(Integer.toString(graph.getNodeCount()));
-                n.addAttribute("Selected", false);
+                graph.addNode(Integer.toString(IDGenerator.getInstance().assignID()));
                 input.dispose();
             });
             input.setMinimumSize(new Dimension(200,150));

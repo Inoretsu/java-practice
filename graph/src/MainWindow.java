@@ -30,7 +30,6 @@ public class MainWindow extends JFrame {
 
     CustomMouseManager mouseMan;
 
-
     private final JLabel title1 = createLabel("Graph creator", 22, 22);
     private final JLabel title2 = createLabel("Algorithm", 22, 240);
     private final JLabel title3 = createLabel("Matrix", 22, 433);
@@ -53,8 +52,8 @@ public class MainWindow extends JFrame {
 
         mouseMan = new CustomMouseManager();
         mouseMan.init(viewer.getGraphicGraph(), view);
+        mouseMan.enableContext(graph);
 
-        new GraphChangeListener(graph, table);
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");
         graph.addAttribute("ui.stylesheet",
@@ -85,7 +84,6 @@ public class MainWindow extends JFrame {
         fileMenu.setForeground(new Color(232,224,239));
         menuBar.setBackground(new Color(66,62,70));
         menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(179,45,45)));
-
 
         fileMenu.add(openItem);
         fileMenu.add(saveItem);
@@ -134,10 +132,10 @@ public class MainWindow extends JFrame {
         viewer.enableAutoLayout();
 
         addButton.addActionListener((e) -> {
-            graph.addNode(nodeName.getText());
+            graph.addNode( Integer.toString(IDGenerator.getInstance().assignID()) );
         });
 
-        generateButton.addActionListener((e) -> {
+        generateButton.addActionListener((b) -> {
             Generator gen = new RandomGenerator();
             gen.addSink(graph);
             gen.begin();
@@ -149,10 +147,9 @@ public class MainWindow extends JFrame {
         });
 
         clearButton.addActionListener((e) -> {
-
-            for(Node i: graph) {
-                graph.removeNode(i);
-            }
+            Node n;
+            while( graph.getNodeCount() != 0 )
+                graph.removeNode(0);
         });
 
         // save/open file
