@@ -44,7 +44,7 @@ public class MainWindow extends JFrame {
     private final JMenuItem openItem = new JMenuItem("Open");
     private final JMenuItem saveItem = new JMenuItem("Save");
 
-    public MainWindow() {
+    public MainWindow() throws IOException {
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         graph = new SingleGraph("ID");
         viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
@@ -94,11 +94,16 @@ public class MainWindow extends JFrame {
         fileMenu.setForeground(new Color(232,224,239));
         menuBar.setBackground(new Color(66,62,70));
         menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(179,45,45)));
+        openItem.setBackground(new Color(34, 31, 37));
+        saveItem.setBackground(new Color(34, 31, 37));
+        openItem.setForeground(Color.white);
+        saveItem.setForeground(Color.white);
 
         fileMenu.add(openItem);
         fileMenu.add(saveItem);
-        fileMenu.addSeparator();
         JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.setBackground(new Color(34, 31, 37));
+        exitItem.setForeground(Color.white);
         fileMenu.add(exitItem);
         exitItem.addActionListener(e -> System.exit(0));
 
@@ -111,10 +116,15 @@ public class MainWindow extends JFrame {
         setJMenuBar(menuBar);
 
         //left panel
-        JPanel toolBar = new JPanel();
-
+        final Image backgroundImage = javax.imageio.ImageIO.read(new File("./res/background.png"));
+        JPanel toolBar = new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                g.drawImage(backgroundImage, 0, 0, null);
+            }
+        };
         toolBar.setPreferredSize(new Dimension(260, 660));
-        toolBar.setBackground(new Color(34,31,37));
+       // toolBar.setBackground(new Color(34,31,37));
         toolBar.setLayout(null);
         toolBar.add(title1);
         toolBar.add(nodeName);
@@ -122,6 +132,7 @@ public class MainWindow extends JFrame {
         toolBar.add(generateButton);
         toolBar.add(title2);
         toolBar.add(sbs);
+        startButton.setBackground(new Color(220,45,45));
         toolBar.add(startButton);
         toolBar.add(clearButton);
         toolBar.add(title3);
@@ -227,7 +238,7 @@ public class MainWindow extends JFrame {
         ta.setBounds(x, y, w, h);
         ta.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         ta.setFont(new Font("Exo 2 light", Font.CENTER_BASELINE, 14));
-        ta.setBackground(new Color(199,199,199));
+        ta.setBackground(new Color(219, 219, 219));
         return ta;
     }
 
