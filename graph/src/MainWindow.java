@@ -136,6 +136,9 @@ public class MainWindow extends JFrame {
         toolBar.add(startButton);
         toolBar.add(clearButton);
         toolBar.add(title3);
+
+        table = new JTable();
+        NodeChangeListener.getInstance().init(graph, table);
         JScrollPane jscrlp = new JScrollPane(table);
         jscrlp.setBounds(22, 464, 211, 185);
         toolBar.add(jscrlp);
@@ -153,8 +156,7 @@ public class MainWindow extends JFrame {
         viewer.enableAutoLayout();
 
         addButton.addActionListener((e) -> {
-            Node n = graph.addNode( Integer.toString(IDGenerator.getInstance().assignID()) );
-            n.addAttribute("ui.label", nodeName.getText());
+            NodeChangeListener.getInstance().addNode(nodeName.getText());
         });
 
         generateButton.addActionListener((e) -> {

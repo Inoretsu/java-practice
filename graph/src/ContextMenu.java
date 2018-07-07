@@ -63,8 +63,7 @@ public class ContextMenu extends JPopupMenu {
             JButton ok = new JButton("Ok");
             input.add(ok);
             ok.addActionListener((ee)->{
-                graph.addNode(Integer.toString(IDGenerator.getInstance().assignID()));
-                input.dispose();
+                NodeChangeListener.getInstance().addNode(name.getText());
             });
             input.setMinimumSize(new Dimension(200,150));
             input.setVisible(true);
