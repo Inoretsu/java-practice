@@ -10,8 +10,12 @@ import org.graphstream.algorithm.generator.*;
 import org.graphstream.ui.swingViewer.*;
 import org.graphstream.graph.*;
 import org.graphstream.stream.file.FileSource;
+import org.graphstream.ui.view.util.DefaultMouseManager;
 import org.graphstream.ui.view.util.MouseManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
+
 import org.graphstream.stream.file.FileSourceFactory;
 
 import java.awt.event.ActionEvent;
@@ -137,7 +141,8 @@ public class MainWindow extends JFrame {
         toolBar.add(clearButton);
         toolBar.add(title3);
 
-        table = new JTable();
+        DefaultTableModel model = new DefaultTableModel();
+        table = new JTable(model);
         NodeChangeListener.getInstance().init(graph, table);
         JScrollPane jscrlp = new JScrollPane(table);
         jscrlp.setBounds(22, 464, 211, 185);
@@ -160,6 +165,8 @@ public class MainWindow extends JFrame {
         });
 
         generateButton.addActionListener((e) -> {
+            NodeChangeListener.getInstance().clean();
+
             Generator gen = new RandomGenerator(3, false, true);
             gen.addSink(graph);
             gen.begin();
@@ -171,20 +178,19 @@ public class MainWindow extends JFrame {
             q.setAttribute("ui.label",3);
             q = graph.getNode(graph.getNodeCount() - 1);
             q.setAttribute("ui.label", graph.getNodeCount());
+
             int n = ThreadLocalRandom.current().nextInt(3, 25);
             for(int i=0; i<n; i++) {
-
                 gen.nextEvents();
                 Node curr = graph.getNode(graph.getNodeCount() - 1);
                 curr.setAttribute("ui.label", graph.getNodeCount());
             }
-            gen.end();
+
+            NodeChangeListener.getInstance().updateTable();
         });
 
         clearButton.addActionListener((e) -> {
-            Node n;
-            while( graph.getNodeCount() != 0 )
-                graph.removeNode(0);
+            NodeChangeListener.getInstance().clean();
         });
 
         // save/open file
@@ -202,8 +208,9 @@ public class MainWindow extends JFrame {
             }
         });
 
-
         openItem.addActionListener(e -> {
+            NodeChangeListener.getInstance().clean();
+
             JFileChooser openFile = new JFileChooser();
             openFile.showOpenDialog(null);
             File path = openFile.getSelectedFile();
@@ -218,6 +225,7 @@ public class MainWindow extends JFrame {
                 e1.printStackTrace();
             }
 
+            NodeChangeListener.getInstance().updateTable();
         });
         //-------------------------------------
 
