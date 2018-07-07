@@ -92,7 +92,7 @@ public class CustomMouseManager implements MouseManager
         switch (event.getButton()){
             case MouseEvent.BUTTON1:
                 if(event.getClickCount() > 1)
-                    NodeChangeListener.getInstance().addNode("");
+                    NodeChangeListener.getInstance().addNode(String.valueOf(graph.getNodeCount() + 1));
                 break;
             case MouseEvent.BUTTON3:
                 if( contMenu != null )

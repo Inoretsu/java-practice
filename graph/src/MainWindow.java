@@ -160,11 +160,17 @@ public class MainWindow extends JFrame {
         });
 
         generateButton.addActionListener((e) -> {
-            Generator gen = new RandomGenerator();
+            Generator gen = new RandomGenerator(3, false, true);
             gen.addSink(graph);
             gen.begin();
-            Node m = graph.getNode(graph.getNodeCount() - 1);
-            m.setAttribute("ui.label", graph.getNodeCount());
+            Node q = graph.getNode(0);
+            q.setAttribute("ui.label",1);
+            q = graph.getNode(1);
+            q.setAttribute("ui.label", 2);
+            q = graph.getNode(2);
+            q.setAttribute("ui.label",3);
+            q = graph.getNode(graph.getNodeCount() - 1);
+            q.setAttribute("ui.label", graph.getNodeCount());
             int n = ThreadLocalRandom.current().nextInt(3, 25);
             for(int i=0; i<n; i++) {
 
@@ -172,8 +178,6 @@ public class MainWindow extends JFrame {
                 Node curr = graph.getNode(graph.getNodeCount() - 1);
                 curr.setAttribute("ui.label", graph.getNodeCount());
             }
-            Node g = graph.getNode(graph.getNodeCount() - 1);
-            g.setAttribute("ui.label", graph.getNodeCount());
             gen.end();
         });
 
