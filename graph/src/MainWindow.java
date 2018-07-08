@@ -2,30 +2,25 @@ import java.awt.*;
 import javax.swing.*;
 
 import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.stream.GraphParseException;
-import org.graphstream.stream.file.FileSink;
-import org.graphstream.stream.file.FileSourceDGS;
-import org.graphstream.ui.view.*;
-import org.graphstream.algorithm.generator.*;
-import org.graphstream.ui.swingViewer.*;
 import org.graphstream.graph.*;
+
+import org.graphstream.stream.file.FileSourceDGS;
+
+import org.graphstream.ui.swingViewer.*;
+import org.graphstream.ui.view.*;
+
+import org.graphstream.algorithm.generator.*;
+
 import org.graphstream.stream.file.FileSource;
-import org.graphstream.ui.view.util.DefaultMouseManager;
-import org.graphstream.ui.view.util.MouseManager;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 
-import org.graphstream.stream.file.FileSourceFactory;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MainWindow extends JFrame {
     private Graph graph;
+    private Algorithm algo;
 
     private Viewer viewer;
     private ViewPanel view;
@@ -160,6 +155,7 @@ public class MainWindow extends JFrame {
         setContentPane(backPanel);
         viewer.enableAutoLayout();
 
+        //BUTTONS
         addButton.addActionListener((e) -> {
             NodeChangeListener.getInstance().addNode(nodeName.getText());
         });
@@ -231,12 +227,25 @@ public class MainWindow extends JFrame {
 
             NodeChangeListener.getInstance().updateTable();
         });
+
+        startButton.addActionListener(e -> {
+                //algo = new Algo();
+                //algo.init(graph);
+                //algo.compute();
+                //Algo.APSPInfo info = graph.getNode(3).getAttribute(APSPInfo.ATTRIBUTE_NAME);
+                //System.out.println(info.getShortestPathTo("4"));
+                Algorithm a = new Algorithm(graph);
+                a.init(graph.getNode(0));
+                a.calculate();
+                a.create();
+        });
         //-------------------------------------
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
+
     }
 
     private JLabel createLabel (String text, int x, int y)

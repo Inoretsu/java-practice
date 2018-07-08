@@ -3,9 +3,6 @@ import org.graphstream.graph.Node;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Vector;
 
 public class NodeChangeListener {
@@ -48,7 +45,7 @@ public class NodeChangeListener {
     }
 
     public void deleteNode(Node n) {
-        System.out.println(table.getColumn(n).getModelIndex());
+        //System.out.println(table.getColumn(n).getModelIndex());
         model.removeRow(0);
         table.removeColumn(table.getColumn(n));
         graph.removeNode(n);
@@ -85,6 +82,11 @@ public class NodeChangeListener {
                     data.add("");
         }
         return data;
+    }
+
+    public void addEdge(Node s, Node d){
+        graph.addEdge(s.getId() + "_" + d.getId(),s,d,true);
+        table.setValueAt("Y", table.getColumn(s).getModelIndex(), table.getColumn(d).getModelIndex());
     }
 }
 
