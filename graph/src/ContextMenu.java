@@ -49,12 +49,14 @@ public class ContextMenu extends JPopupMenu {
         add(boundAll);
         boundAll.addActionListener((e) -> {
             Vector<Node> attrib = new Vector<>();
-            for( Node n : graph.getNodeSet() ) //Getting all selected nodes
-            {
-                if (n.hasAttribute("ui.selected")) {
-                    attrib.add(n);
-                }
-            }
+            for( Node n : grGraph.getNodeSet() ) //Getting all selected nodes
+                if (n.hasAttribute("ui.selected"))
+                    attrib.add(graph.getNode(n.getId()));
+
+                for( Node source : attrib )
+                    for( Node dest : attrib )
+                        if( !source.hasEdgeToward(dest) && dest != source )
+                            NodeChangeListener.getInstance().addEdge(source, dest);
         });
 
         deleteEdges = new JMenuItem("Delete edge(-s)");

@@ -138,6 +138,7 @@ public class MainWindow extends JFrame {
 
         DefaultTableModel model = new DefaultTableModel();
         table = new JTable(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         NodeChangeListener.getInstance().init(graph, table);
         JScrollPane jscrlp = new JScrollPane(table);
         jscrlp.setBounds(22, 464, 211, 185);
