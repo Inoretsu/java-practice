@@ -1,7 +1,6 @@
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
-import java.util.List;
 import java.util.Vector;
 
 public class Algorithm {

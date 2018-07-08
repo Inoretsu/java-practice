@@ -25,7 +25,7 @@ public class CustomMouseManager implements MouseManager
 
     public void enableContext(Graph graph){
         defaultGraph = graph;
-        this.contMenu = new ContextMenu(graph);
+        this.contMenu = new ContextMenu(defaultGraph, this.graph);
     }
 
     public void release() {

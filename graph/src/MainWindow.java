@@ -20,7 +20,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MainWindow extends JFrame {
     private Graph graph;
-    private Algorithm algo;
 
     private Viewer viewer;
     private ViewPanel view;
@@ -229,11 +228,6 @@ public class MainWindow extends JFrame {
         });
 
         startButton.addActionListener(e -> {
-                //algo = new Algo();
-                //algo.init(graph);
-                //algo.compute();
-                //Algo.APSPInfo info = graph.getNode(3).getAttribute(APSPInfo.ATTRIBUTE_NAME);
-                //System.out.println(info.getShortestPathTo("4"));
                 Algorithm a = new Algorithm(graph);
                 a.init(graph.getNode(0));
                 a.calculate();
