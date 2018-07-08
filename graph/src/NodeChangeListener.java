@@ -14,7 +14,7 @@ public class NodeChangeListener {
 
     private static NodeChangeListener instance = new NodeChangeListener();
 
-    public NodeChangeListener(){}
+    private NodeChangeListener(){}
 
     public static NodeChangeListener getInstance(){ return instance; }
 
@@ -23,10 +23,11 @@ public class NodeChangeListener {
         graph = gr;
         model = (DefaultTableModel)tabel.getModel();
         ident = new Vector<>();
+        model.setColumnIdentifiers(ident);
 
         model.addColumn("");
-        ident.add(null);
-        model.setColumnIdentifiers(ident);
+        ident.setElementAt(null, 0);
+
     }
 
     public void addNode(String name){
@@ -93,7 +94,6 @@ public class NodeChangeListener {
     public void deleteEdge(Node s, Node d){
         table.setValueAt("", s.getIndex(), d.getIndex());
         graph.removeEdge(s,d);
-
     }
 }
 

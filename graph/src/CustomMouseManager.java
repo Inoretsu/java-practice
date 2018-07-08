@@ -62,7 +62,7 @@ public class CustomMouseManager implements MouseManager
     protected void mouseButtonPressOnElement(GraphicElement element,
                                              MouseEvent event) {
         view.freezeElement(element, true);
-        if (event.getButton() == 3) {
+        if (event.getButton() != 3) {
             element.addAttribute("ui.selected");
         } else {
             element.addAttribute("ui.clicked");

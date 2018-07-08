@@ -45,9 +45,10 @@ public class MainWindow extends JFrame {
     public MainWindow() throws IOException {
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         graph = new SingleGraph("ID");
+        graph.setStrict(false);
         viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
         view = viewer.addDefaultView(false);
-        graph.setStrict(false);
+        viewer.enableAutoLayout();
 
         mouseMan = new CustomMouseManager();
         mouseMan.init(viewer.getGraphicGraph(), view);
@@ -92,8 +93,6 @@ public class MainWindow extends JFrame {
                         "}" +
                         "edge.edgemark {" +
                         "fill-color: rgb(220, 45, 45);" +
-                        "}" +
-
                         "}");
 
 
@@ -134,6 +133,7 @@ public class MainWindow extends JFrame {
             }
         };
         toolBar.setPreferredSize(new Dimension(260, 660));
+
        // toolBar.setBackground(new Color(34,31,37));
         toolBar.setLayout(null);
         toolBar.add(title1);
@@ -147,14 +147,14 @@ public class MainWindow extends JFrame {
         toolBar.add(clearButton);
         toolBar.add(title3);
 
-        DefaultTableModel model = new DefaultTableModel();
-        table = new JTable(model);
+        // Table
+        table = new JTable();
+        table.getTableHeader().setReorderingAllowed(false);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         NodeChangeListener.getInstance().init(graph, table);
         JScrollPane jscrlp = new JScrollPane(table);
         jscrlp.setBounds(22, 464, 211, 185);
         toolBar.add(jscrlp);
-        //
 
         view.setPreferredSize(new Dimension(950, 660));
 
@@ -163,11 +163,9 @@ public class MainWindow extends JFrame {
         backPanel.setPreferredSize(new Dimension(1200, 660));
         backPanel.add(toolBar, BorderLayout.EAST);
         backPanel.add(view, BorderLayout.WEST);
-
         setContentPane(backPanel);
-        viewer.enableAutoLayout();
 
-        //BUTTONS
+        // Buttons
         addButton.addActionListener((e) -> {
             NodeChangeListener.getInstance().addNode(nodeName.getText());
         });
@@ -242,7 +240,6 @@ public class MainWindow extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
-
     }
 
     private JLabel createLabel (String text, int x, int y)

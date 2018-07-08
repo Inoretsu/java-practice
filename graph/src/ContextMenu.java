@@ -6,20 +6,9 @@ import java.awt.*;
 import java.util.Vector;
 
 public class ContextMenu extends JPopupMenu {
-    private JMenuItem boundAll;
-    private JMenuItem deleteEdges;
-    private JMenuItem createNode;
-    private JMenuItem deleteNodes;
-
-    private Graph graph;
-    private GraphicGraph grGraph;
-
-
     public ContextMenu(Graph graph, GraphicGraph grGraph){
-        this.graph = graph;
-        this.grGraph = grGraph;
 
-        createNode = new JMenuItem("Add node...");
+        JMenuItem createNode = new JMenuItem("Add node...");
         add(createNode);
         createNode.addActionListener((e) -> {
             JFrame input = new JFrame("Name");
@@ -36,7 +25,7 @@ public class ContextMenu extends JPopupMenu {
             input.setVisible(true);
         });
 
-        deleteNodes = new JMenuItem("Delete node(-s)");
+        JMenuItem deleteNodes = new JMenuItem("Delete node(-s)");
         add(deleteNodes);
         deleteNodes.addActionListener((e) -> {
             Vector<Node> b = new Vector<>(grGraph.getNodeSet());
@@ -45,7 +34,7 @@ public class ContextMenu extends JPopupMenu {
                    NodeChangeListener.getInstance().deleteNode(graph.getNode(n.getId())); //Hew-hew-hew
         });
 
-        boundAll = new JMenuItem("Bound");
+        JMenuItem boundAll = new JMenuItem("Bound all");
         add(boundAll);
         boundAll.addActionListener((e) -> {
             Vector<Node> attrib = new Vector<>();
@@ -59,7 +48,24 @@ public class ContextMenu extends JPopupMenu {
                             NodeChangeListener.getInstance().addEdge(source, dest);
         });
 
-        deleteEdges = new JMenuItem("Delete edge(-s)");
+        JMenuItem boundWith = new JMenuItem("Bound with...");
+        add(boundWith);
+        boundWith.addActionListener((e) -> {
+            Node selected = null;
+            Vector<Node> attr = new Vector<>();
+            for( Node n : grGraph ) {
+                if (n.hasAttribute("ui.selected") && !n.hasAttribute("ui.clicked"))
+                    attr.add(n);
+                else
+                    if (n.hasAttribute("ui.clicked"))
+                        selected = graph.getNode(n.getId());
+            }
+
+            for( Node nan : attr )
+                NodeChangeListener.getInstance().addEdge(graph.getNode(nan.getId()), selected);
+        });
+
+        JMenuItem deleteEdges = new JMenuItem("Delete edge(-s)");
         add(deleteEdges);
         deleteEdges.addActionListener((e) -> {
             Vector<Node> attrib = new Vector<>();
@@ -72,7 +78,6 @@ public class ContextMenu extends JPopupMenu {
                     if( source.hasEdgeToward(dest) )
                         NodeChangeListener.getInstance().deleteEdge(source, dest);
         });
-
 
 
 
