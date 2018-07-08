@@ -18,40 +18,6 @@ public class ContextMenu extends JPopupMenu {
     public ContextMenu(Graph graph, GraphicGraph grGraph){
         this.graph = graph;
         this.grGraph = grGraph;
-        boundAll = new JMenuItem("Bound");
-        add(boundAll);
-        boundAll.addActionListener((e) -> {
-                Vector<Node> attrib = new Vector<>();
-
-                for( Node n : graph.getNodeSet() ) //Getting all selected nodes
-                {
-                    if (n.hasAttribute("ui.selected")) {
-                        attrib.add(n);
-                    }
-                }
-        });
-
-        deleteNodes = new JMenuItem("Delete node(-s)");
-        add(deleteNodes);
-        deleteNodes.addActionListener((e) -> {
-            for( Node n : graph.getNodeSet() ) //Getting all selected nodes
-                if (n.hasAttribute("ui.selected"))
-                    graph.removeNode(n);
-        });
-
-        deleteEdges = new JMenuItem("Delete edge(-s)");
-        add(deleteEdges);
-        deleteEdges.addActionListener((e) -> {
-            Vector<Node> attrib = new Vector<>();
-            for( Node n : graph.getNodeSet() ) //Getting all selected nodes
-                if ((boolean)n.getAttribute("Selected"))
-                    attrib.add(n);
-
-            for( Node n : attrib )
-                for( Node c : attrib )
-                    if( n.hasEdgeBetween(c) )
-                        graph.removeEdge(n,c);
-        });
 
         createNode = new JMenuItem("Add node...");
         add(createNode);
@@ -69,6 +35,43 @@ public class ContextMenu extends JPopupMenu {
             input.setMinimumSize(new Dimension(200,150));
             input.setVisible(true);
         });
+
+        deleteNodes = new JMenuItem("Delete node(-s)");
+        add(deleteNodes);
+        deleteNodes.addActionListener((e) -> {
+            Vector<Node> b = new Vector<>(grGraph.getNodeSet());
+            for( Node n : b ) //Getting all selected nodes
+                if (n.hasAttribute("ui.selected"))
+                   NodeChangeListener.getInstance().deleteNode(graph.getNode(n.getId())); //Hew-hew-hew
+        });
+
+        boundAll = new JMenuItem("Bound");
+        add(boundAll);
+        boundAll.addActionListener((e) -> {
+            Vector<Node> attrib = new Vector<>();
+            for( Node n : graph.getNodeSet() ) //Getting all selected nodes
+            {
+                if (n.hasAttribute("ui.selected")) {
+                    attrib.add(n);
+                }
+            }
+        });
+
+        deleteEdges = new JMenuItem("Delete edge(-s)");
+        add(deleteEdges);
+        deleteEdges.addActionListener((e) -> {
+            Vector<Node> attrib = new Vector<>();
+            for( Node n : grGraph.getNodeSet() ) //Getting all selected nodes
+                if (n.hasAttribute("ui.selected"))
+                    attrib.add(graph.getNode(n.getId()));
+
+            for( Node source : attrib )
+                for( Node dest : attrib )
+                    if( source.hasEdgeToward(dest) )
+                        NodeChangeListener.getInstance().deleteEdge(source, dest);
+        });
+
+
 
 
     }

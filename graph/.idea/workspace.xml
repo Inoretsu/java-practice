@@ -18,14 +18,13 @@
       <file leaf-file-name="MainWindow.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
+            <state relative-caret-position="298">
+              <caret line="49" column="29" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6462#6554#0" />
                 <element signature="e#6599#7496#0" />
                 <element signature="e#7538#7610#0" />
-                <element signature="e#7675#8057#0" />
                 <element signature="e#8096#8700#0" />
                 <element signature="e#8574#8885#0" />
                 <element signature="method#createLabel#0;class#MainWindow#0" />
@@ -37,27 +36,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContextMenu.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ContextMenu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ContextMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-136">
-              <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
+            <state relative-caret-position="337">
+              <caret line="47" column="50" lean-forward="true" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1422#1826#0" />
+                <element signature="e#530#837#0" />
+                <element signature="e#1100#1298#0" />
+                <element signature="e#1943#2493#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NodeChangeListener.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AbstractGraph.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/graph/implementations/AbstractGraph.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="89" column="20" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GraphicNode.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/ui/graphicGraph/GraphicNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="412" selection-start-line="412" selection-end-line="412" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NodeChangeListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/NodeChangeListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="84" column="5" lean-forward="true" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
+            <state relative-caret-position="357">
+              <caret line="94" column="29" selection-start-line="94" selection-start-column="29" selection-end-line="94" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#addNode#0;class#NodeChangeListener#0" />
+                <element signature="method#deleteNode#0;class#NodeChangeListener#0" />
                 <element signature="method#updateTable#0;class#NodeChangeListener#0" />
                 <element signature="method#clean#0;class#NodeChangeListener#0" />
                 <element signature="method#listConnections#0;class#NodeChangeListener#0" />
@@ -121,6 +141,7 @@
       <find>getMode</find>
       <find>startButton</find>
       <find>ASPS</find>
+      <find>getEac</find>
       <find>Mouse</find>
     </findStrings>
   </component>
@@ -139,17 +160,17 @@
         <option value="$PROJECT_DIR$/src/GraphChangeListener.java" />
         <option value="$PROJECT_DIR$/src/Application.java" />
         <option value="$PROJECT_DIR$/src/Algo.java" />
-        <option value="$PROJECT_DIR$/src/NodeChangeListener.java" />
         <option value="$PROJECT_DIR$/src/Algorithm.java" />
-        <option value="$PROJECT_DIR$/src/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/CustomMouseManager.java" />
         <option value="$PROJECT_DIR$/src/ContextMenu.java" />
+        <option value="$PROJECT_DIR$/src/MainWindow.java" />
+        <option value="$PROJECT_DIR$/src/NodeChangeListener.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="182" />
-    <option name="y" value="-24" />
+    <option name="x" value="142" />
+    <option name="y" value="-9" />
     <option name="width" value="1350" />
     <option name="height" value="700" />
   </component>
@@ -298,7 +319,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4275862" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.08275862" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -344,12 +365,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ContextMenu.java</url>
-          <line>36</line>
+          <line>52</line>
           <properties />
-          <option name="timeStamp" value="134" />
+          <option name="timeStamp" value="137" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ContextMenu.java</url>
+          <line>53</line>
+          <properties />
+          <option name="timeStamp" value="138" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="135" />
+      <option name="time" value="139" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -368,20 +395,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/ui/view/ViewerListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.desktop/java/awt/event/ActionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="50" column="16" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ViewerListenerCustom.java" />
     <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.desktop/javax/swing/WindowConstants.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -434,13 +447,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MouseListenerCustom.java" />
-    <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/ui/graphicGraph/GraphicGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="136" column="13" selection-start-line="136" selection-start-column="13" selection-end-line="136" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-javadoc.jar!/org/graphstream/stream/file/FileSource.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -450,13 +456,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
           <caret line="273" selection-start-line="273" selection-end-line="273" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/graph/implementations/AbstractGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="444" selection-start-line="444" selection-end-line="444" />
         </state>
       </provider>
     </entry>
@@ -712,36 +711,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NodeChangeListener.java">
+    <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/ui/graphicGraph/StyleGroupSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="84" column="5" lean-forward="true" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#addNode#0;class#NodeChangeListener#0" />
-            <element signature="method#updateTable#0;class#NodeChangeListener#0" />
-            <element signature="method#clean#0;class#NodeChangeListener#0" />
-            <element signature="method#listConnections#0;class#NodeChangeListener#0" />
-          </folding>
+        <state relative-caret-position="-538">
+          <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MainWindow.java">
+    <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/ui/graphicGraph/GraphicGraph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
+        <state relative-caret-position="108">
+          <caret line="554" column="42" selection-start-line="554" selection-start-column="42" selection-end-line="554" selection-end-column="42" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6462#6554#0" />
-            <element signature="e#6599#7496#0" />
-            <element signature="e#7538#7610#0" />
-            <element signature="e#7675#8057#0" />
-            <element signature="e#8096#8700#0" />
-            <element signature="e#8574#8885#0" />
-            <element signature="method#createLabel#0;class#MainWindow#0" />
-            <element signature="method#createTextEdit#0;class#MainWindow#0" />
-            <element signature="method#createCheckbox#0;class#MainWindow#0" />
-            <element signature="method#createButton#0;class#MainWindow#0" />
+            <element signature="e#15686#15687#0" expanded="true" />
+            <element signature="e#15719#15720#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -756,13 +739,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ContextMenu.java">
+    <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/ui/graphicGraph/GraphicNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
+        <state relative-caret-position="195">
+          <caret line="412" selection-start-line="412" selection-end-line="412" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/gs-core-1.3/gs-core-1.3-sources.jar!/org/graphstream/graph/implementations/AbstractGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="89" column="20" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="49" column="29" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1422#1826#0" />
+            <element signature="e#6462#6554#0" />
+            <element signature="e#6599#7496#0" />
+            <element signature="e#7538#7610#0" />
+            <element signature="e#8096#8700#0" />
+            <element signature="e#8574#8885#0" />
+            <element signature="method#createLabel#0;class#MainWindow#0" />
+            <element signature="method#createTextEdit#0;class#MainWindow#0" />
+            <element signature="method#createCheckbox#0;class#MainWindow#0" />
+            <element signature="method#createButton#0;class#MainWindow#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ContextMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="47" column="50" lean-forward="true" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#530#837#0" />
+            <element signature="e#1100#1298#0" />
+            <element signature="e#1943#2493#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NodeChangeListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="94" column="29" selection-start-line="94" selection-start-column="29" selection-end-line="94" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#addNode#0;class#NodeChangeListener#0" />
+            <element signature="method#deleteNode#0;class#NodeChangeListener#0" />
+            <element signature="method#updateTable#0;class#NodeChangeListener#0" />
+            <element signature="method#clean#0;class#NodeChangeListener#0" />
+            <element signature="method#listConnections#0;class#NodeChangeListener#0" />
           </folding>
         </state>
       </provider>

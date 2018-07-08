@@ -87,7 +87,14 @@ public class NodeChangeListener {
     public void addEdge(Node s, Node d){
         if( graph.getEdge(s.getId()+ "_" + d.getId()) == null )
             graph.addEdge(s.getId() + "_" + d.getId(),s,d,true);
-        table.setValueAt("Y", table.getColumn(s).getModelIndex(), table.getColumn(d).getModelIndex());
+        else
+            table.setValueAt("Y", table.getColumn(s).getModelIndex(), table.getColumn(d).getModelIndex());
+    }
+
+    public void deleteEdge(Node s, Node d){
+        table.setValueAt("", s.getIndex(), d.getIndex());
+        graph.removeEdge(s,d);
+
     }
 }
 

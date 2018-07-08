@@ -47,6 +47,7 @@ public class MainWindow extends JFrame {
         graph = new SingleGraph("ID");
         viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
         view = viewer.addDefaultView(false);
+        graph.setStrict(false);
 
         mouseMan = new CustomMouseManager();
         mouseMan.init(viewer.getGraphicGraph(), view);
