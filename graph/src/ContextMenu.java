@@ -78,8 +78,5 @@ public class ContextMenu extends JPopupMenu {
                     if( source.hasEdgeToward(dest) )
                         NodeChangeListener.getInstance().deleteEdge(source, dest);
         });
-
-
-
     }
 }

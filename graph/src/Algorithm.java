@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
@@ -7,20 +9,15 @@ public class Algorithm {
     private Graph graph;
     private int n;
     private byte matrix[][];
-    private Vector<Node> edges;
+    private Vector<Pair<Node, Node>> edges;
     private int it = 0;
-    private Node source;
 
     Algorithm(Graph gr) {
         graph = gr;
     }
 
-    public void init(Node s){
-        //edges.clear();
-        //it = 0;
-
-        this.source = s;
-        edges = new Vector<Node>(){};
+    public void init(){
+        edges = new Vector<Pair<Node, Node>>(){};
         n = graph.getNodeCount();
         matrix = new byte[n][n];
         for (int i = 0; i < n; i++)
@@ -29,25 +26,27 @@ public class Algorithm {
     }
 
     public void calculate(){
-        for (int i = 0; i < n; i++) { //source connections
-            if (matrix[source.getIndex()][i] == 1) { //if there is one
-                for (int j = 0; j < n; j++) { //connections for connection
-                    if (matrix[i][j] == 1 && matrix[source.getIndex()][j] == 0) { //if connections connection exists and source connection does not
-                        matrix[i][j] = 1;
-                        edges.add(graph.getNode(j));
+        for( Node first : graph ){ //for every node
+            for( Edge firstConntections : first.getEachEdge() ){
+                for( Edge secondConnections : firstConntections.getTargetNode().getEachEdge()) {
+                    if ( !first.hasEdgeBetween(secondConnections.getTargetNode().getId()) && secondConnections.getTargetNode() != first){
+                        edges.add(new Pair<>(first, secondConnections.getTargetNode()));
                     }
                 }
             }
         }
-    }
+
+
+                }
 
     public void step(){
-        NodeChangeListener.getInstance().addEdge(source, edges.get(it++));
+        NodeChangeListener.getInstance().addEdge(edges.get(it).getKey(), edges.get(it).getValue());
+        ++it;
     }
 
     public void create(){
-        for( Node n : edges )
-            NodeChangeListener.getInstance().addEdge(source, edges.get(it++));
+        for( Pair n : edges )
+            step();
     }
 
 

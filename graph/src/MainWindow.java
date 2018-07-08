@@ -230,7 +230,7 @@ public class MainWindow extends JFrame {
 
         startButton.addActionListener(e -> {
                 Algorithm a = new Algorithm(graph);
-                a.init(graph.getNode(0));
+                a.init();
                 a.calculate();
                 a.create();
         });

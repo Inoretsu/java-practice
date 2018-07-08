@@ -83,7 +83,6 @@ public class CustomMouseManager implements MouseManager
     }
 
     // Mouse Listener
-
     protected GraphicElement curElement;
 
     protected float x1, y1;
