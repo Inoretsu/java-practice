@@ -67,7 +67,10 @@ public class MainWindow extends JFrame {
                         "text-style: bold;" +
                         "text-size: 20px;" +
                         "text-mode: normal;" +
-                        //"text-mode: hidden;" +
+                        "shadow-color: rgb(220,45,45), white;" +
+                        "shadow-mode: gradient-radial;" +
+                        "shadow-offset: 0;" +
+                        "shadow-width: 7px;" +
                         "}" +
                         "node:selected {" +
                         "stroke-color: rgb(34,31,37);" +
@@ -78,11 +81,19 @@ public class MainWindow extends JFrame {
                         "text-color: white;" +
                         "}" +
                         " edge {" +
-                        "shape: line;" +
+                        "shape: cubic-curve;" +
                         "size: 3px;" +
-                        "arrow-size: 10px;" +
-                        "arrow-shape: arrow;" +
+                        "arrow-size: 30px, 7px;" +
+                        "arrow-shape: diamond;" +
                         "fill-color: rgb(34,31,37);" +
+                        "}" +
+                        "node.nodemark {" +
+                        "shadow-width: 14px;" +
+                        "}" +
+                        "edge.edgemark {" +
+                        "fill-color: rgb(220, 45, 45);" +
+                        "}" +
+
                         "}");
 
 
