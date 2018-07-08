@@ -186,6 +186,10 @@ public class MainWindow extends JFrame {
                 curr.setAttribute("ui.label", graph.getNodeCount());
             }
 
+            int i = 0;
+            for( Node nen : graph )
+                nen.setAttribute("ui.label", i++); //definitely not a duct tape
+
             NodeChangeListener.getInstance().updateTable();
         });
 

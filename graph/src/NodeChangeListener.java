@@ -11,7 +11,9 @@ import java.util.Vector;
 public class NodeChangeListener {
     private Graph graph;
     private JTable table;
-    private int ID;
+    private DefaultTableModel model;
+    private Vector<Node> ident;
+    private int ID = 1;
 
     private static NodeChangeListener instance = new NodeChangeListener();
 
@@ -22,55 +24,62 @@ public class NodeChangeListener {
     public void init(Graph gr, JTable tabel){
         table = tabel;
         graph = gr;
+        model = (DefaultTableModel)tabel.getModel();
+        ident = new Vector<>();
 
-        ((DefaultTableModel)table.getModel()).addColumn("");
-        table.getColumnModel().getColumn(0).setIdentifier("header");
+        model.addColumn("");
+        ident.add(null);
+        model.setColumnIdentifiers(ident);
     }
 
     public void addNode(String name){
-        if( name.isEmpty() ) name = Integer.toString(ID);
+        if( name.isEmpty() ) name = Integer.toString(ID+1);
         Node n = graph.addNode(Integer.toString(ID++));
         n.addAttribute("ui.label", name);
 
-        TableColumn c = new TableColumn();
-        c.setHeaderValue(name);
-        c.setIdentifier(n);
-        table.addColumn(c);
+        model.addColumn(name);
+        ident.setElementAt(n, ident.size()-1);
+        for( int i = 1; i < table.getColumnCount(); ++i ) //Duct tape
+            table.getColumnModel().getColumn(i).setIdentifier(ident.get(i));
 
-        ((DefaultTableModel)table.getModel()).addRow(new Object[]{});
-        table.getModel().setValueAt(name, table.getRowCount() - 1, 0);
+        model.addRow(new Object[]{name});
+        System.out.println(table.getColumn(n).getModelIndex());
+
     }
 
     public void deleteNode(Node n) {
-        ((DefaultTableModel)table.getModel()).removeRow(table.getColumn(n).getModelIndex());
+        System.out.println(table.getColumn(n).getModelIndex());
+        model.removeRow(0);
         table.removeColumn(table.getColumn(n));
         graph.removeNode(n);
     }
 
     public void updateTable(){
         for( Node n : graph ) {
-            TableColumn c = new TableColumn();
-            c.setHeaderValue(n.getAttribute("ui.label"));
-            c.setIdentifier(n);
-            table.addColumn(c);
+           model.addColumn(ID++);
+           ident.setElementAt(n, ident.size()-1);
+           for( int i = 1; i < table.getColumnCount(); ++i ) //Duct tape
+               table.getColumnModel().getColumn(i).setIdentifier(ident.get(i));
         }
-        for( Node n : graph) {
-            ((DefaultTableModel) table.getModel()).addRow(new String[table.getColumnCount()]);
-        }
+        for( Node n : graph)
+            model.addRow(listConnections(n));
     }
 
     public void clean(){
-        ID = 0;
         while( graph.getNodeCount() != 0 )
             deleteNode(graph.getNode(0));
+        ID = 1;
+        ident.clear();
+        ident.add(null);
     }
 
     public Vector<String> listConnections(Node n){
         Vector<String> data = new Vector<>();
         data.add(n.getAttribute("ui.label"));
-        for( TableColumn c : Collections.list(table.getColumnModel().getColumns()) ){
-            if( c.getModelIndex() != 0 )
-                if( n.hasEdgeBetween( (Node)c.getIdentifier() ) )
+        for( Node nan : ident )
+        {
+            if( nan != null )
+                if ( n.hasEdgeBetween(nan) )
                     data.add("Y");
                 else
                     data.add("");
