@@ -167,20 +167,10 @@ public class MainWindow extends JFrame {
             Generator gen = new RandomGenerator(3, false, true);
             gen.addSink(graph);
             gen.begin();
-            Node q = graph.getNode(0);
-            q.setAttribute("ui.label",1);
-            q = graph.getNode(1);
-            q.setAttribute("ui.label", 2);
-            q = graph.getNode(2);
-            q.setAttribute("ui.label",3);
-            q = graph.getNode(graph.getNodeCount() - 1);
-            q.setAttribute("ui.label", graph.getNodeCount());
 
-            int n = ThreadLocalRandom.current().nextInt(3, 25);
+            int n = ThreadLocalRandom.current().nextInt(3, 10);
             for(int i=0; i<n; i++) {
                 gen.nextEvents();
-                Node curr = graph.getNode(graph.getNodeCount() - 1);
-                curr.setAttribute("ui.label", graph.getNodeCount());
             }
 
             int i = 0;

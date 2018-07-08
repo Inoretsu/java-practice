@@ -1,0 +1,28 @@
+DGS004
+null 0 0
+cg  "ui.quality":true
+cg  "ui.antialias":true
+cg  "ui.stylesheet":"node {shape: circle;fill-color: white;size: 40px, 40px;stroke-mode: plain;stroke-color: rgb(220,45,45);stroke-width: 5px;text-color: rgb(220,45,45);text-style: bold;text-size: 20px;text-mode: normal;}node:selected {stroke-color: rgb(34,31,37);text-color: rgb(34,31,37);}node:clicked {fill-color: rgb(220,45,45);text-color: white;} edge {shape: line;size: 3px;arrow-size: 10px;arrow-shape: arrow;fill-color: rgb(34,31,37);}"
+an "0"
+cn "0"  "ui.label":0
+an "1"
+cn "1"  "ui.label":1
+an "2"
+cn "2"  "ui.label":2
+an "3"
+cn "3"  "ui.label":3
+an "4"
+cn "4"  "ui.label":4
+an "5"
+cn "5"  "ui.label":5
+an "6"
+cn "6"  "ui.label":6
+ae "0_1" "1" > "0"
+ae "0_2" "0" > "2"
+ae "0_3" "3" > "0"
+ae "1_2" "1" > "2"
+ae "1_3" "1" > "3"
+ae "2_3" "2" > "3"
+ae "1_5" "5" > "1"
+ae "4_5" "5" > "4"
+ae "4_6" "4" > "6"
