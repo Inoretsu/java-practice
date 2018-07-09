@@ -30,7 +30,7 @@ public class MainWindow extends JFrame {
 
     private final JLabel title1 = createLabel("Graph creator", 22, 22);
     private final JLabel title2 = createLabel("Algorithm", 22, 240);
-    private final JLabel title3 = createLabel("Matrix", 22, 433);
+    private final JLabel title3 = createLabel("Matrix", 22, 427);
 
     private final JTextField nodeName = createTextEdit ("Enter node name",22, 63, 211, 37);
     private final JButton addButton = createButton("add node", 22, 114);
@@ -53,6 +53,15 @@ public class MainWindow extends JFrame {
         mouseMan = new CustomMouseManager();
         mouseMan.init(viewer.getGraphicGraph(), view);
         mouseMan.enableContext(graph);
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        try {
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("./res/Exo2-Medium.ttf")));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("./res/Exo2-Light.ttf")));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("./res/Exo2-Thin.ttf")));
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        }
 
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");
@@ -77,10 +86,6 @@ public class MainWindow extends JFrame {
                         "stroke-color: rgb(34,31,37);" +
                         "text-color: rgb(34,31,37);" +
                         "}" +
-                        "node:clicked {" +
-                        "fill-color: rgb(220,45,45);" +
-                        "text-color: white;" +
-                        "}" +
                         " edge {" +
                         "shape: cubic-curve;" +
                         "size: 3px;" +
@@ -99,29 +104,35 @@ public class MainWindow extends JFrame {
         //file menu
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-        fileMenu.setFont(new Font("Exo 2 light", Font.CENTER_BASELINE, 11));
+        Font menufont = new Font("Exo 2 light", Font.CENTER_BASELINE, 12);
+        fileMenu.setFont(menufont);
         fileMenu.setForeground(new Color(232,224,239));
         menuBar.setBackground(new Color(66,62,70));
         menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(179,45,45)));
         openItem.setBackground(new Color(34, 31, 37));
+        openItem.setPreferredSize( new Dimension(15, 25));
         saveItem.setBackground(new Color(34, 31, 37));
+        saveItem.setPreferredSize( new Dimension(40, 25));
         openItem.setForeground(Color.white);
+        openItem.setPreferredSize( new Dimension(40, 25));
         saveItem.setForeground(Color.white);
 
         fileMenu.add(openItem);
         fileMenu.add(saveItem);
         JMenuItem exitItem = new JMenuItem("Exit");
         exitItem.setBackground(new Color(34, 31, 37));
+        exitItem.setPreferredSize( new Dimension(40, 25));
         exitItem.setForeground(Color.white);
         fileMenu.add(exitItem);
         exitItem.addActionListener(e -> System.exit(0));
-
-        JMenu aboutMenu = new JMenu("About");
-        aboutMenu.setFont(new Font("Exo 2 light", Font.CENTER_BASELINE, 11));
-        aboutMenu.setForeground(new Color(232,224,239));
+        openItem.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        saveItem.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        exitItem.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        openItem.setFont(menufont);
+        saveItem.setFont(menufont);
+        exitItem.setFont(menufont);
 
         menuBar.add(fileMenu);
-        menuBar.add(aboutMenu);
         setJMenuBar(menuBar);
 
         //left panel
@@ -142,7 +153,7 @@ public class MainWindow extends JFrame {
         toolBar.add(generateButton);
         toolBar.add(title2);
         toolBar.add(sbs);
-        startButton.setBackground(new Color(220,45,45));
+        startButton.setBackground(new Color(191, 40, 40));
         toolBar.add(startButton);
         toolBar.add(clearButton);
         toolBar.add(title3);
@@ -244,23 +255,23 @@ public class MainWindow extends JFrame {
 
     private JLabel createLabel (String text, int x, int y)
     {
-        JLabel te = new JLabel(text);
-        te.setBounds(x, y, 211, 28);
-        te.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        JLabel label = new JLabel(text);
+        label.setBounds(x, y, 211, 28);
+        label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         Font font = new Font("Exo 2 medium", Font.CENTER_BASELINE, 24);
-        te.setFont(font);
-        te.setForeground(Color.white);
-        return te;
+        label.setFont(font);
+        label.setForeground(Color.white);
+        return label;
     }
 
     private JTextField createTextEdit (String text, int x, int y, int w, int h)
     {
-        JTextField ta = new JTextField();
-        ta.setBounds(x, y, w, h);
-        ta.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-        ta.setFont(new Font("Exo 2 light", Font.CENTER_BASELINE, 14));
-        ta.setBackground(new Color(219, 219, 219));
-        return ta;
+        JTextField textedit = new JTextField();
+        textedit.setBounds(x, y, w, h);
+        textedit.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        textedit.setFont(new Font("Exo 2 light", Font.CENTER_BASELINE, 14));
+        textedit.setBackground(new Color(219, 219, 219));
+        return textedit;
     }
 
     private JCheckBox createCheckbox (String text, int x, int y)
