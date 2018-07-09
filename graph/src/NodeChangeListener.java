@@ -10,7 +10,8 @@ public class NodeChangeListener {
     private JTable table;
     private DefaultTableModel model;
     private Vector<Node> ident;
-    private int ID = 1;
+    private Vector<String> names;
+    private int ID = 0;
 
     private static NodeChangeListener instance = new NodeChangeListener();
 
@@ -23,6 +24,8 @@ public class NodeChangeListener {
         graph = gr;
         model = (DefaultTableModel)tabel.getModel();
         ident = new Vector<>();
+        names = new Vector<>();
+        names.add("");
         model.setColumnIdentifiers(ident);
 
         model.addColumn("");
@@ -34,13 +37,15 @@ public class NodeChangeListener {
         Node n = graph.addNode(Integer.toString(ID++));
         n.addAttribute("ui.label", name);
 
+        names.add(name);
         model.addColumn(name);
         ident.setElementAt(n, ident.size()-1);
-        for( int i = 1; i < table.getColumnCount(); ++i ) //Duct tape
+        for( int i = 1; i < table.getColumnCount(); ++i ) { //Duct tape
             table.getColumnModel().getColumn(i).setIdentifier(ident.get(i));
+            table.getColumnModel().getColumn(i).setHeaderValue(names.get(i));
+        }
 
         model.addRow(new Object[]{name});
-        System.out.println(table.getColumn(n).getModelIndex());
     }
 
     public void deleteNode(Node n) {
@@ -53,10 +58,13 @@ public class NodeChangeListener {
 
     public void updateTable(){
         for( Node n : graph ) {
+            names.add(Integer.toString(ID));
            model.addColumn(ID++);
            ident.setElementAt(n, ident.size()-1);
-           for( int i = 1; i < table.getColumnCount(); ++i ) //Duct tape
+           for( int i = 1; i < table.getColumnCount(); ++i ) { //Duct tape
                table.getColumnModel().getColumn(i).setIdentifier(ident.get(i));
+               table.getColumnModel().getColumn(i).setHeaderValue(names.get(i));
+           }
         }
         for( Node n : graph)
             model.addRow(listConnections(n));
@@ -65,9 +73,12 @@ public class NodeChangeListener {
     public void clean(){
         while( graph.getNodeCount() != 0 )
             deleteNode(graph.getNode(0));
-        ID = 1;
+        ID = 0;
         ident.clear();
         ident.add(null);
+
+        names.clear();
+        names.add("");
     }
 
     public Vector<String> listConnections(Node n){
