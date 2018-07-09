@@ -97,7 +97,9 @@ public class MainWindow extends JFrame {
                         "fill-color: rgb(34,31,37);" +
                         "}" +
                         "node.nodemark {" +
-                        "shadow-width: 14px;" +
+                        "shadow-width: 10px;" +
+                        "fill-color: rgb(220, 45, 45);" +
+                        "text-color: white;" +
                         "}" +
                         "edge.edgemark {" +
                         "fill-color: rgb(220, 45, 45);" +
