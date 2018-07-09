@@ -170,6 +170,7 @@ public class MainWindow extends JFrame {
         NodeChangeListener.getInstance().init(graph, table);
         JScrollPane jscrlp = new JScrollPane(table);
         jscrlp.setBounds(22, 464, 211, 185);
+        //jscrlp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         toolBar.add(jscrlp);
 
         view.setPreferredSize(new Dimension(950, 660));

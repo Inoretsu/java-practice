@@ -27,7 +27,6 @@ public class NodeChangeListener {
 
         model.addColumn("");
         ident.setElementAt(null, 0);
-
     }
 
     public void addNode(String name){
@@ -46,8 +45,9 @@ public class NodeChangeListener {
 
     public void deleteNode(Node n) {
         //System.out.println(table.getColumn(n).getModelIndex());
-        model.removeRow(0);
+        model.removeRow(ident.indexOf(n) - 1);
         table.removeColumn(table.getColumn(n));
+        ident.remove(n);
         graph.removeNode(n);
     }
 
