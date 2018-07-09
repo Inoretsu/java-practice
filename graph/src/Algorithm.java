@@ -67,17 +67,26 @@ public class Algorithm {
                 break;
             case 1:
                 s.addAttribute("ui.class", "nodemark");
-                f.getEdgeBetween(s).addAttribute("ui.class", "edgemark");
+                if( f.getEdgeBetween(s) != null )
+                    f.getEdgeBetween(s).addAttribute("ui.class", "edgemark");
                 ++nodeToCol;
                 break;
             case 2:
                 th.addAttribute("ui.class", "nodemark");
-                s.getEdgeBetween(th).addAttribute("ui.class", "edgemark");
+                if( s.getEdgeBetween(th) != null )
+                    s.getEdgeBetween(th).addAttribute("ui.class", "edgemark");
                 ++nodeToCol;
                 break;
                 default:
-                    f.getEdgeBetween(s).removeAttribute("ui.class");
-                    s.getEdgeBetween(th).removeAttribute("ui.class");
+
+                    f.removeAttribute("ui.class");
+                    s.removeAttribute("ui.class");
+                    th.removeAttribute("ui.class");
+
+                    if( f.getEdgeBetween(s) != null )
+                        f.getEdgeBetween(s).removeAttribute("ui.class");
+                    if( s.getEdgeBetween(th) != null )
+                        s.getEdgeBetween(th).removeAttribute("ui.class");
 
                     NodeChangeListener.getInstance().addEdge(f, th);
                     nodeToCol = 0;
