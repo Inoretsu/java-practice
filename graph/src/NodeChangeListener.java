@@ -42,7 +42,6 @@ public class NodeChangeListener {
 
         model.addRow(new Object[]{name});
         System.out.println(table.getColumn(n).getModelIndex());
-
     }
 
     public void deleteNode(Node n) {

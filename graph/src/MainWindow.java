@@ -27,6 +27,7 @@ public class MainWindow extends JFrame {
     private JTable table;
 
     CustomMouseManager mouseMan;
+    private Algorithm algos;
 
     private final JLabel title1 = createLabel("Graph creator", 22, 22);
     private final JLabel title2 = createLabel("Algorithm", 22, 240);
@@ -49,6 +50,8 @@ public class MainWindow extends JFrame {
         viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
         view = viewer.addDefaultView(false);
         viewer.enableAutoLayout();
+
+
 
         mouseMan = new CustomMouseManager();
         mouseMan.init(viewer.getGraphicGraph(), view);
@@ -198,9 +201,11 @@ public class MainWindow extends JFrame {
                 nen.setAttribute("ui.label", i++); //definitely not a duct tape
 
             NodeChangeListener.getInstance().updateTable();
+            algos = null;
         });
 
         clearButton.addActionListener((e) -> {
+            algos = null;
             NodeChangeListener.getInstance().clean();
         });
 
@@ -240,10 +245,16 @@ public class MainWindow extends JFrame {
         });
 
         startButton.addActionListener(e -> {
-                Algorithm a = new Algorithm(graph);
-                a.init();
-                a.calculate();
-                a.create();
+            if( algos == null ) {
+                algos = new Algorithm(graph);
+                algos.init();
+                algos.calculate();
+            }
+
+            if( sbs.isSelected() )
+                algos.step();
+            else
+                algos.create();
         });
         //-------------------------------------
 
